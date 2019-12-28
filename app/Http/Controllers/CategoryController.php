@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Model\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     {
         //
 
-        return Category::latest()->get();
+        return CategoryResource::collection(Category::latest()->get());
     }
 
     /**
@@ -60,7 +61,7 @@ class CategoryController extends Controller
     {
         //
 
-        return $category;
+        return new CategoryResource($category);
     }
 
     /**
@@ -90,7 +91,7 @@ class CategoryController extends Controller
             'slug'=> Str::slug($request->name)
         ]);
         return response('updated');
-    }
+}
 
     /**
      * Remove the specified resource from storage.
