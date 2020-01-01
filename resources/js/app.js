@@ -7,7 +7,10 @@ window.Vue = require('vue');
 import Vue from 'vue'
 import vuetify from './vuetify'
 
+import User from './Helpers/User.js'
 
+window.User = User;
+console.log(User.id());
 
 Vue.use(vuetify);
 
