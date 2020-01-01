@@ -2,9 +2,8 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="realtimeapp@localhost" uuid="36470b88-0533-4bcb-8857-ee37776677bd">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <secret-storage>master_key</secret-storage>
-      <first-sync>true</first-sync>
       <user-name>root</user-name>
     </data-source>
   </component>

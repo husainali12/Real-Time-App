@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('Jwt', ['except' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
