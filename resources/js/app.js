@@ -10,9 +10,11 @@ import vuetify from './vuetify'
 import User from './Helpers/User.js'
 
 window.User = User;
-console.log(User.id());
+//console.log(User.id());
 
 Vue.use(vuetify);
+
+window.EventBus = new Vue;
 
 Vue.component('AppHome',require('./components/AppHome.vue').default);
 
