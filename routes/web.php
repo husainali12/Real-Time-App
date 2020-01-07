@@ -21,3 +21,4 @@ Route::get('/', function () {
 
 Route::view('/', 'newhome');
 Route::view('/{any}', 'newhome');
+Route::view('/{any}/{any1}', 'newhome');

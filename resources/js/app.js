@@ -12,7 +12,16 @@ import User from './Helpers/User.js'
 window.User = User;
 //console.log(User.id());
 
-Vue.use(vuetify);
+Vue.use(vuetify,{
+    iconfont:'mdi'
+});
+
+import VueSimplemde from 'vue-simplemde'
+
+Vue.component('vue-simplemde', VueSimplemde);
+import md from 'marked'
+
+window.md = md;
 
 window.EventBus = new Vue;
 

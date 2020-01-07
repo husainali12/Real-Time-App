@@ -52,9 +52,8 @@ class QuestionController extends Controller
     {
         //
 
-        Question::create($request->all());
-
-        return response('created');
+        $question = auth()->user()->question()->create($request->all());
+        return response(new QuestionResource($question));
 
     }
 

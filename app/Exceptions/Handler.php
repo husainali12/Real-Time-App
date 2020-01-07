@@ -53,13 +53,13 @@ class Handler extends ExceptionHandler
 
              return response(['error'=> 'Token can not be used, get new one'],200);
 
-        }else if ($exception instanceof JWTException ){
-
-            return response(['error'=> 'Token is not provided'],200);
-
         }else if ($exception instanceof TokenInvalidException ){
 
-            return response(['error'=> 'Token is invalid'],200);
+            return response(['error'=> 'Token is invalid'],404);
+
+        }else if ($exception instanceof JWTException ){
+
+            return response(['error'=> 'Token is not provided'],404);
 
         }
         return parent::render($request, $exception);
