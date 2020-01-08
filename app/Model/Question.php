@@ -44,6 +44,6 @@ class Question extends Model
         return $this->belongsTo(Category::class);
     }
     public function getPathAttribute(){
-        return "question/$this->slug";
+        return "/question/$this->slug";
     }
 }
