@@ -2,11 +2,18 @@
     <div class="text-center">
         <v-menu offset-y>
             <template v-slot:activator="{ on }">
+                <v-badge
+                        color="pink"
+                        content="6"
+                        overlap
+                >
                 <v-btn  icon
                         v-on="on"
                 >
                     <v-icon :color="color">add_alert</v-icon>{{unReadCount}}
-                </v-btn>
+                    </v-btn>
+                </v-badge>
+
             </template>
             <v-list>
                 <v-list-item v-for="item in  unRead"
@@ -42,6 +49,12 @@
             if (User.loggedIn()){
                 this.getNotifications()
             }
+
+            Echo.private('App.User.' + User.id())
+                .notification((notification) => {
+                    this.unRead.unshift(notification);
+                    this.unReadCount++ ;
+                });
         },
         methods:{
             getNotifications(){

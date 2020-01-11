@@ -63,7 +63,7 @@
         },
         methods:{
             destroy(){
-                axios.delete('http://realtimeapp.test/api/question/'+this.data.slug)
+                axios.delete('/api/question/'+this.data.slug)
                     .then(res => this.$router.push('/forum'))
                     .catch(error => console.log(error.response.data))
             },

@@ -40,7 +40,7 @@
        created() {
             this.listing()
 
-           axios.get(`http://realtimeapp.test/api/question/${this.$route.params.slug}`)
+           axios.get(`/api/question/${this.$route.params.slug}`)
                .then(res=> this.question = res.data.data)
                .catch(error=>console.log(error.response.data))
        },methods:{

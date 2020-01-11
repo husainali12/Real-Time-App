@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeleteReplyEvent;
 use App\Http\Resources\ReplyResource;
 use App\Model\Question;
 use App\Model\Reply;
@@ -109,7 +110,9 @@ class ReplyController extends Controller
     {
        $reply->delete();
 
-       return response('deleted');
+        broadcast(new DeleteReplyEvent($reply->id))->toOthers();
+
+        return response('deleted');
 
 
     }

@@ -16,6 +16,7 @@
             <v-list-item
             v-for="category in categories"
             :key="category.id"
+            v-if="categories"
             >
 
                 <v-list-item-content>
@@ -25,6 +26,12 @@
 
             </v-list-item>
 
+            <v-skeleton-loader
+                    v-if="!categories"
+                    class="mx-auto"
+                    type="list-item"
+            ></v-skeleton-loader>
+
         </v-list>
     </v-card>
 </template>
@@ -33,7 +40,7 @@
     export default {
         data(){
           return{
-              categories:{}
+              categories:null
           }
         },
        created(){
