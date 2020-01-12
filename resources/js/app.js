@@ -8,8 +8,12 @@ import Vue from 'vue'
 import vuetify from './vuetify'
 
 import User from './Helpers/User.js'
+import Exception from './Helpers/Exception'
+
 
 window.User = User;
+
+window.Exception = Exception;
 //console.log(User.id());
 
 Vue.use(vuetify,{

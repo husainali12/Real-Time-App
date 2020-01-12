@@ -14,7 +14,13 @@
 
         <v-container>
         <replies :question="question"></replies>
-            <new-reply :questionSlug="question.slug"></new-reply>
+
+            <new-reply v-if="loggedIn" :questionSlug="question.slug"></new-reply>
+            <div class="mt-4" v-else>
+                <router-link to="/login">
+                    Login to Reply
+                </router-link>
+            </div>
         </v-container>
     </div>
 
@@ -43,7 +49,12 @@
            axios.get(`/api/question/${this.$route.params.slug}`)
                .then(res=> this.question = res.data.data)
                .catch(error=>console.log(error.response.data))
-       },methods:{
+       },computed:{
+            loggedIn(){
+                return User.loggedIn()
+            }
+        },
+        methods:{
             listing(){
                 EventBus.$on('editing',()=>{
                     this.editing = true;

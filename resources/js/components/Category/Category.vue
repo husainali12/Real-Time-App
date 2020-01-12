@@ -7,8 +7,8 @@
                     type = "text"
                     required
             ></v-text-field>
-            <v-btn type="submit" color="pink" v-if="editSlug">Update</v-btn>
-            <v-btn type="submit" color="teal" v-else>Create</v-btn>
+            <v-btn type="submit" color="pink" :disabled="disabled" v-if="editSlug">Update</v-btn>
+            <v-btn type="submit" color="teal" :disabled="disabled" v-else>Create</v-btn>
         </v-form>
 
         <v-card
@@ -105,6 +105,10 @@
             axios.get('/api/category')
                 .then(res => this.categories = res.data.data)
                 .catch(error => console.log(error.response.data))
+        },computed:{
+            disabled(){
+                return !(this.form.name)
+            }
         }
     };
 </script>

@@ -17,7 +17,7 @@
         props:['questionSlug'],
         methods:{
             submit(){
-                axios.post('http://realtimeapp.test/api/question/'+this.questionSlug+'/reply',{body:this.body})
+                axios.post('/api/question/'+this.questionSlug+'/reply',{body:this.body})
                     .then(res => {
                         this.body = '';
                         EventBus.$emit('newReply',res.data.reply);

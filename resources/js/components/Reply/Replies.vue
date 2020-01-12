@@ -28,6 +28,7 @@
                 EventBus.$on('newReply',(reply)=>{
                     this.content.unshift(reply);
                     window.scrollTo(0,0)
+
                 })
 
                 EventBus.$on('deleteReply',(index)=>{

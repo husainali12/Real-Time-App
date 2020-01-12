@@ -1,8 +1,12 @@
 
     <template>
         <div>
-            <v-toolbar>
-                <v-toolbar-title>Q/A</v-toolbar-title>
+            <v-toolbar color="teal darken-1 elevation-5" dark>
+                <v-toolbar-title>
+                    <router-link  class="white--text" to="/">
+                        Q/A App
+                    </router-link>
+                </v-toolbar-title>
 
                 <v-spacer></v-spacer>
                 <app-notification v-if="loggedIn"></app-notification>
@@ -49,4 +53,7 @@
 </script>
 
 <style scoped>
+    a{
+        text-decoration: none;
+    }
 </style>

@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
@@ -53,11 +54,13 @@ class Handler extends ExceptionHandler
 
              return response(['error'=> 'Token can not be used, get new one'],200);
 
-        }else if ($exception instanceof TokenInvalidException ){
+        }elseif ($exception instanceof TokenInvalidException ){
 
             return response(['error'=> 'Token is invalid'],404);
 
-        }else if ($exception instanceof JWTException ){
+        }elseif ($exception instanceof TokenExpiredException){
+            return response(['error'=> 'Token is expired'],404);
+        }elseif ($exception instanceof JWTException ){
 
             return response(['error'=> 'Token is not provided'],404);
 

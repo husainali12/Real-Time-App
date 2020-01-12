@@ -42,7 +42,8 @@
           return{
               read:{},
               unRead:{},
-              unReadCount:0
+              unReadCount:0,
+              sound:"http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3"
           }
         },
         created() {
@@ -52,6 +53,7 @@
 
             Echo.private('App.User.' + User.id())
                 .notification((notification) => {
+                    this.playSound()
                     this.unRead.unshift(notification);
                     this.unReadCount++ ;
                 });
@@ -63,7 +65,7 @@
                         this.read = res.data.read;
                         this.unRead = res.data.unRead;
                         this.unReadCount = res.data.unRead.length;
-                    })
+                    }).catch(error => Exception.handle(error))
             },
             readIt(notification){
                 axios.post('/api/markAsRead',{id:notification.id})
@@ -72,6 +74,12 @@
                         this.read.push(notification)
                         this.unReadCount --
                     })
+            },
+            playSound(){
+
+                let alert = new Audio(this.sound)
+
+                alert.play()
             }
         },
         computed:{
