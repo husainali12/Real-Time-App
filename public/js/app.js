@@ -2392,12 +2392,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      questions: null
+      questions: null,
+      pagination: {
+        current: 1,
+        total: 0
+      }
     };
   },
   components: {
@@ -2408,10 +2427,25 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/question').then(function (res) {
-      return _this.questions = res.data.data;
+      _this.questions = res.data.data;
+      _this.pagination.total = res.data.meta.last_page;
+      _this.pagination.current = res.data.meta.current_page;
     })["catch"](function (error) {
       return console.log(error.response.data);
     });
+  },
+  methods: {
+    paginate: function paginate() {
+      var _this2 = this;
+
+      axios.get('/api/question?page=' + this.pagination.current).then(function (res) {
+        _this2.questions = res.data.data;
+        _this2.pagination.total = res.data.meta.last_page;
+        _this2.pagination.current = res.data.meta.current_page;
+      })["catch"](function (error) {
+        return console.log(error.response.data);
+      });
+    }
   }
 });
 
@@ -66973,14 +67007,44 @@ var render = function() {
             "v-flex",
             { attrs: { xs8: "" } },
             [
-              _vm._l(_vm.questions, function(question) {
-                return _vm.questions
-                  ? _c("question", {
-                      key: question.path,
-                      attrs: { question: question }
-                    })
-                  : _vm._e()
-              }),
+              _vm.questions
+                ? _c(
+                    "div",
+                    [
+                      _vm._l(_vm.questions, function(question) {
+                        return _c("question", {
+                          key: question.path,
+                          attrs: { question: question }
+                        })
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center" },
+                        [
+                          _c("v-pagination", {
+                            attrs: {
+                              length: _vm.pagination.total,
+                              "prev-icon": "menu-left",
+                              "next-icon": "menu-right",
+                              circle: ""
+                            },
+                            on: { input: _vm.paginate },
+                            model: {
+                              value: _vm.pagination.current,
+                              callback: function($$v) {
+                                _vm.$set(_vm.pagination, "current", $$v)
+                              },
+                              expression: "pagination.current"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    2
+                  )
+                : _vm._e(),
               _vm._v(" "),
               !_vm.questions
                 ? _c(
@@ -66996,7 +67060,7 @@ var render = function() {
                   )
                 : _vm._e()
             ],
-            2
+            1
           ),
           _vm._v(" "),
           _c("v-flex", { attrs: { xs4: "" } }, [_c("app-sidebar")], 1)

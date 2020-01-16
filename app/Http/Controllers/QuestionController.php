@@ -23,7 +23,7 @@ class QuestionController extends Controller
     {
         //
 
-        $question = Question::latest()->get();
+        $question = Question::latest()->paginate(5);
 
 //        $arr = ['result'=>true,
 //               'question'=>$question];

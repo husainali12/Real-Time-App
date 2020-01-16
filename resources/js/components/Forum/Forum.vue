@@ -3,12 +3,26 @@
         <v-layout row wrap>
             <v-flex xs8>
 
+                <div v-if="questions">
+
           <question
           v-for="question in questions"
           :key="question.path"
           :question= question
-          v-if="questions"
+
            ></question>
+
+                    <div class="text-center">
+                        <v-pagination
+                                v-model="pagination.current"
+                                :length="pagination.total"
+                                prev-icon="menu-left"
+                                next-icon="menu-right"
+                                @input="paginate"
+                                circle
+                        ></v-pagination>
+                    </div>
+                </div>
                 <v-sheet v-if="!questions"
                         class="px-3 pt-3 pb-3"
                 >
@@ -17,6 +31,7 @@
                             type="article"
                     ></v-skeleton-loader>
                 </v-sheet>
+
             </v-flex>
             <v-flex xs4>
             <app-sidebar></app-sidebar>
@@ -32,14 +47,34 @@
     export default {
         data(){
             return{
-                questions:null
+                questions:null,
+                pagination:{
+                    current:1,
+                    total:0
+
+                }
             }
         },
      components:{question,AppSidebar},
         created() {
          axios.get('/api/question')
-             .then(res => this.questions = res.data.data)
+             .then(res => {
+                 this.questions = res.data.data
+                 this.pagination.total = res.data.meta.last_page
+                 this.pagination.current = res.data.meta.current_page
+             })
              .catch(error=>console.log(error.response.data))
+        },
+        methods:{
+            paginate(){
+                axios.get('/api/question?page='+this.pagination.current)
+                    .then(res => {
+                        this.questions = res.data.data
+                        this.pagination.total = res.data.meta.last_page
+                        this.pagination.current = res.data.meta.current_page
+                    })
+                    .catch(error=>console.log(error.response.data))
+            }
         }
     };
 </script>
